@@ -1,5 +1,11 @@
 # enteprise1
 
+
+        echo json_encode(array(
+            "status" => true,
+            "data" => $data (data dari database)
+        ))
+
 product_master
 product_id,product_name,product_stock,product_color,product_price,product_img,product_description,product_model
 
