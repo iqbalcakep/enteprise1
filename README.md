@@ -1,1 +1,121 @@
 # enteprise1
+
+product_master
+product_id,product_name,product_stock,product_color,product_price,product_img,product_description,product_model
+
+product_order
+order_id,product_id,order_qty,order_date
+
+kurir_master
+kurir_id,kurir_service,kurir_description,kurir_price,kurir_mode
+
+kurir_order
+order_id,kurir_id,store_name,location_address,order_total
+
+distro_master
+distro_id,distro_url,store_name
+
+distro_transaction
+transaction_id,distro_id,transaction_date,transaction_total
+
+
+ATURAN
+
+    POST PRODUCT ORDER {
+        url = distro_url + /add_order
+        method = post,
+        data/body {
+            order_id = generate_manual (store_name + datetime + rand())
+            product_id = sesuai product yang dipilih
+            order_qty = jumlah order 
+            order_date = date now
+         }
+    }
+
+    RESPONSE POST PRODUCT ORDER {
+        type = json
+       
+       {
+            result:true,
+            data:"success"
+        } 
+    
+    }
+
+===================================================================================
+
+    GET PRODUCT {
+        url = distro_url + /get_product
+        method = GET
+    }
+
+    RESPONSE GET PRODUCT {
+        type = json
+        
+        {
+           result:true,
+           data[array]:{
+                product_id,
+                product_name,
+                product_stock,
+                product_color,
+                product_price,
+                product_img, sudah berbentuk url
+                product_description,
+                product_model
+            }
+        }
+        
+    }
+
+======================================================================================
+
+    GET KURIR {
+        url = kurir_url(statis) + /KurirController/get_kurir
+        method = get
+    }
+
+    RESPONSE GET KURIR {
+        type = json
+        {
+            result:true,
+            data[array]:{
+                kurir_id,
+                kurir_service,
+                kurir_description,
+                kurir_price,
+                kurir_mode
+               }
+         }
+    }
+
+    *Catatan apabila kurir_mode = motor kasih gambar motor apabila mobil kasih gambar mobil
+
+
+======================================================================================
+    
+   POST KURIR ORDER {
+        url = kurir_url(statis) + /KurirController/add_order
+        method = POST
+        data/body = {
+            order_id = samakan dengan order_id di BAJU
+            kurir_id = sesuai id yang dipilih
+            store_name = sesuai web baju
+            location_address = alamat tujuan
+            order_total = total pesan tidak pakai biaya kirim
+        }
+    }
+
+    RESPONSE GET KURIR ORDER {
+        type = json
+        {
+            result:true,
+            data:"success"
+         }
+    }
+
+
+ SARAN APABILA SUSAH, BISA PAKAI BANYAK CARA... MISAL KETIKA USER KLIK PRODUK MAKA MASUKKAN KE GLOBAL VARIABEL DI JS, ATAU JIKA MASIH GAK BISA BISA PAKAI SIMPAN KE DATABASE BUAT TABEL TEMP LALU KETIKA DI KIRIM MAKA HAPUS SEMUA ISINYA.
+        
+    
+
