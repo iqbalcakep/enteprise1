@@ -95,7 +95,7 @@ ATURAN
 ======================================================================================
     
    POST KURIR ORDER {
-        url = kurir_url(statis) + /KurirController/add_order
+        url = kurir_ur+ /KurirController/add_order
         method = POST
         data/body = {
             order_id = samakan dengan order_id di BAJU
